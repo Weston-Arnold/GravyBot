@@ -1,20 +1,21 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
-const { token } = require("./config.json");
+const { clientToken } = require("./config.json");
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
 
-const commandsPath = path.join(__dirname, "commands");
+const commandsDirectoryPath = path.join(__dirname, "commands");
 const commandFiles = fs
-  .readdirSync(commandsPath)
+  .readdirSync(commandsDirectoryPath)
   .filter((file) => file.endsWith(".js"));
 
-for (const file of commandFiles) {
-  const filePath = path.join(commandsPath, file);
+//https://discordjs.guide/creating-your-bot/slash-commands.html#individual-command-files
+commandFiles.forEach((file) => {
+  const filePath = path.join(commandsDirectoryPath, file);
   const command = require(filePath);
-  
+
   if ("data" in command && "execute" in command) {
     client.commands.set(command.data.name, command);
   } else {
@@ -22,7 +23,7 @@ for (const file of commandFiles) {
       `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
     );
   }
-}
+});
 
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) {
@@ -51,4 +52,4 @@ client.once(Events.ClientReady, (c) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
-client.login(token);
+client.login(clientToken);

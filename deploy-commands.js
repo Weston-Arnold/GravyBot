@@ -1,7 +1,8 @@
 const { REST, Routes } = require("discord.js");
-const { clientId, guildId, token } = require("./config.json");
+const { clientId, guildId, clientToken } = require("./config.json");
 const fs = require("node:fs");
 
+//Get a list of .js files inside of /commands
 const commands = [];
 const commandFiles = fs
   .readdirSync("./commands")
@@ -12,7 +13,7 @@ for (const file of commandFiles) {
   commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: "10" }).setToken(token);
+const rest = new REST({ version: "10" }).setToken(clientToken);
 
 (async () => {
   try {
@@ -20,6 +21,7 @@ const rest = new REST({ version: "10" }).setToken(token);
       `Started refreshing ${commands.length} application (/) commands.`
     );
 
+    //https://discordjs.guide/creating-your-bot/command-deployment.html#command-registration
     const data = await rest.put(
       Routes.applicationGuildCommands(clientId, guildId),
       { body: commands }
