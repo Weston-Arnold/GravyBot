@@ -1,6 +1,6 @@
 const { REST, Routes } = require("discord.js");
-const { clientId, guildId, clientToken } = require("./config.json");
 const fs = require("node:fs");
+require("dotenv").config();
 
 //Get a list of .js files inside of /commands
 const commands = [];
@@ -13,9 +13,9 @@ for (const file of commandFiles) {
   commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: "10" }).setToken(clientToken);
+const rest = new REST({ version: "10" }).setToken(process.env.CLIENT_TOKEN);
 
-(async () => {
+async () => {
   try {
     console.log(
       `Started refreshing ${commands.length} application (/) commands.`
@@ -23,7 +23,10 @@ const rest = new REST({ version: "10" }).setToken(clientToken);
 
     //https://discordjs.guide/creating-your-bot/command-deployment.html#command-registration
     const data = await rest.put(
-      Routes.applicationGuildCommands(clientId, guildId),
+      Routes.applicationGuildCommands(
+        process.env.CLIENT_id,
+        process.env.GUILD_ID
+      ),
       { body: commands }
     );
 
@@ -33,4 +36,4 @@ const rest = new REST({ version: "10" }).setToken(clientToken);
   } catch (error) {
     console.error(error);
   }
-});
+};
