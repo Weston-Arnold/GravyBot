@@ -72,6 +72,9 @@ typings/
 .env
 .env.test
 
+# custom config file(s)
+# config.json
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
