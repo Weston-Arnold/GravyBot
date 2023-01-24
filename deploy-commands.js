@@ -33,4 +33,4 @@ const rest = new REST({ version: "10" }).setToken(clientToken);
   } catch (error) {
     console.error(error);
   }
-})();
+});
