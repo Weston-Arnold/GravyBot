@@ -25,7 +25,7 @@ GUILD_ID= <paste here>
 
 ```
 
-2. At this point, assuming you have properly set the enviromental variables in `.env` and setup your environment correctly, running `node index.js` in the root directory will start the bot locally. At this point, the bot should show as online.
+2. At this point, assuming you have properly set the enviromental variables in `.env` and setup your environment correctly, make sure to run `npm install`. One complete, running `node index.js` in the root directory will start the bot locally. At this point, the bot should show as online.
 
 ## Adding more Slash (/) Commands
 
