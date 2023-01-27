@@ -4,17 +4,14 @@ require("dotenv").config();
 
 //Get a list of .js files inside of /commands
 const commands = [];
-const commandFiles = fs
-  .readdirSync("./commands")
-  .filter((file) => file.endsWith(".js"));
+fs.readdirSync("./commands")
+  .filter((file) => file.endsWith(".js"))
+  .forEach((file) => {
+    const command = require(`./commands/${file}`);
+    commands.push(command.data.toJSON());
+  });
 
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  commands.push(command.data.toJSON());
-}
-
-const rest = new REST({ version: "10" }).setToken(process.env.CLIENT_TOKEN);
-
+const rest = new REST().setToken(process.env.CLIENT_TOKEN);
 (async () => {
   try {
     console.log(

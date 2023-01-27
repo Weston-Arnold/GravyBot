@@ -30,11 +30,10 @@ fs.readdirSync(eventsDirectoryPath)
   .forEach((file) => {
     const filePath = path.join(eventsDirectoryPath, file);
     const event = require(filePath);
-    if (event.once) {
-      client.once(event.name, (...args) => event.execute(...args));
-    } else {
-      client.on(event.name, (...args) => event.execute(...args));
-    }
+
+    event.once
+      ? client.once(event.name, (...args) => event.execute(...args))
+      : client.on(event.name, (...args) => event.execute(...args));
   });
 
 client.login(process.env.CLIENT_TOKEN);
