@@ -15,7 +15,7 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: "10" }).setToken(process.env.CLIENT_TOKEN);
 
-async () => {
+(async () => {
   try {
     console.log(
       `Started refreshing ${commands.length} application (/) commands.`
@@ -24,7 +24,8 @@ async () => {
     //https://discordjs.guide/creating-your-bot/command-deployment.html#command-registration
     const data = await rest.put(
       Routes.applicationGuildCommands(
-        process.env.CLIENT_id,
+        process.env.APPLICATION_ID,
+        //https://discordjs.guide/creating-your-bot/command-deployment.html#global-commands
         process.env.GUILD_ID
       ),
       { body: commands }
@@ -36,4 +37,4 @@ async () => {
   } catch (error) {
     console.error(error);
   }
-};
+})();
