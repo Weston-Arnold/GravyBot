@@ -9,6 +9,9 @@ module.exports = {
     const { data } = await axios({
       method: "GET",
       url: "https://v2.jokeapi.dev/joke/Any",
+      params: {
+        blacklistFlags: 'nsfw,racist'
+      },
     });
 
     //1 part joke
