@@ -34,3 +34,5 @@ As a good place to start, new commands can be added by adding a new file to `/co
 For organizational purposes, it's recommended to have **only one** slash command per file.
 
 While there are examples to base new commands off of, it's important to know what they are doing, and for that, `Discord.js` has [great documentation](https://discordjs.guide/creating-your-bot/slash-commands.html#before-you-continue) on adding new commands.
+
+==Important: If you add or edit any slash commands, be sure to run `node deploy-commands.js` before starting the bot back up. This refreshes the command list.==
