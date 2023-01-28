@@ -21,9 +21,7 @@ module.exports = {
         )
     ),
   async execute(interaction) {
-    const category =
-      interaction.options.getString("category") ?? "No category provided";
-
+    const category = interaction.options.getString("category") ?? "Any";
     const { data } = await axios({
       method: "GET",
       //Test API: https://v2.jokeapi.dev/
