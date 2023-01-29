@@ -29,7 +29,6 @@ module.exports = {
     });
 
     if (data.error) {
-      console.log(data);
       await interaction.reply(
         `**API ERROR**: ${
           data.message ?? "Unknown Reason"
